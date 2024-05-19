@@ -10,7 +10,7 @@ const app = express();
 connectDb();
 
 app.use(cors({
-  origin: "https://bookingappserver-635a.onrender.com",
+  origin: "https://bookingappdev.vercel.app",
   credentials:true
 }));
 
