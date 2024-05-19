@@ -10,7 +10,7 @@ const app = express();
 connectDb();
 
 app.use(cors({
-  // origin: "http://localhost:5173",
+  origin: "https://bookingappserver-635a.onrender.com",
   credentials:true
 }));
 
