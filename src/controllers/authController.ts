@@ -100,9 +100,22 @@ const logout=(req: Request, res: Response) => {
   res.status(200).json({message:"Signed Out Successfully"});
 };
 
-const validateToken=(req:Request,res:Response)=>{
-  res.status(200).json({ userId:req.userId})
-}
+const validateToken = (req: Request, res: Response) => {
+  try {
+    const userId = req.userId;
+    if (!userId) {
+      return res
+        .status(403)
+        .json({ message: "Something went wrong,userId is not found" });
+    }
+    res.status(200).json({ userId });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .json({ message: "Something went wrong while validating user" });
+  }
+};
 
 
 export { register,login ,logout,validateToken,getUser};
