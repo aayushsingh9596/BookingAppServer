@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import { validationResult } from "express-validator";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
+import { NONAME } from "dns";
 
 
 const getUser = async(req: Request, res: Response) => {
@@ -84,6 +85,7 @@ const login = async (req: Request, res: Response) => {
       httpOnly: true,
       secure: true,
       maxAge: 86400000,
+      sameSite: 'none'
     });
 
     res.status(200).json({ message: user._id });
