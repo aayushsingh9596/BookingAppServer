@@ -84,6 +84,7 @@ export const createBooking = async (req: Request, res: Response) => {
 };
 
 export const addHotel = async (req: Request, res: Response) => {
+  console.log(req.body);
   const userId = req.userId;
   const {
     name,

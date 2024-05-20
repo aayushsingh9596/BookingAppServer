@@ -1,5 +1,5 @@
 import express, { NextFunction } from "express";
-// import multer from "multer";
+import multer from "multer";
 import { verifyToken } from "../middleware/authMiddleware";
 import { body, param } from "express-validator";
 import {
@@ -26,7 +26,7 @@ const router = express.Router();
 //   },
 // });
 
-// const upload = multer({ storage: storage });
+const upload = multer();
 
 router.post(
   "/addHotel",
@@ -46,6 +46,7 @@ router.post(
       .isArray()
       .withMessage("facilities are required"),
   ],
+  upload.none(),
   // upload.array("imageFiles"),
   // uploadImages,
   addHotel
