@@ -99,6 +99,9 @@ const logout=(req: Request, res: Response) => {
   console.log("In Logout function");
   res.cookie("auth_token", "", {
     expires: new Date(0),
+    httpOnly: true,
+    secure: true,
+    sameSite: 'none'
   });
   res.status(200).json({message:"Signed Out Successfully"});
 };
