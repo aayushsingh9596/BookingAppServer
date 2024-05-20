@@ -19,14 +19,34 @@ const uploadImages = async (
     api_key: process.env.API_KEY,
     api_secret: process.env.API_SECRET,
   });
+
   try {
-    const uploadedImageUrls: string[] = [];
-    console.log(req.files);
-    req.uploadedImageUrls = uploadedImageUrls;
+    const files = req.files as Express.Multer.File[];
+
+    if (!files || files.length === 0) {
+      return res.status(400).json({ error: "No files uploaded" });
+    }
+    const uploadPromises = files.map((file) => {
+      return new Promise<string>((resolve, reject) => {
+        const base64Image = `data:${
+          file.mimetype
+        };base64,${file.buffer.toString("base64")}`;
+        cloudinary.uploader.upload(base64Image, (error, result: any) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(result.secure_url);
+          }
+        });
+      });
+    });
+
+    const uploadedImages = await Promise.all(uploadPromises);
+    req.uploadedImageUrls = uploadedImages;
     next();
   } catch (error) {
-    console.error("Error:", error);
-    res.status(500).json({ error: "Failed to upload images to Cloudinary" });
+    console.error(error);
+    res.status(500).json({ error: "Upload failed" });
   }
 };
 
