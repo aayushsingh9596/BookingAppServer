@@ -96,6 +96,7 @@ const login = async (req: Request, res: Response) => {
 };
 
 const logout=(req: Request, res: Response) => {
+  console.log("In Logout function");
   res.cookie("auth_token", "", {
     expires: new Date(0),
   });
