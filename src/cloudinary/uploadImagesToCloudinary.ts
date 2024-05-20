@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { v2 as cloudinary } from "cloudinary";
-import fs from "fs";
+// import fs from "fs";
 
 declare global {
   namespace Express {
@@ -28,8 +28,9 @@ const uploadImages = async (
     if (req.files && Array.isArray(req.files)) {
       for (const file of req.files) {
 
-        const result = await cloudinary.uploader.upload(file.path);
-        uploadedImageUrls.push(result.secure_url);
+        console.log(file);
+        // const result = await cloudinary.uploader.upload(file.path);
+        // uploadedImageUrls.push(result.secure_url);
       }
 
       // if (uploadedImageUrls.length > 0) {

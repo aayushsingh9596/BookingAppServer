@@ -87,7 +87,7 @@ const hotelSchema = new mongoose.Schema({
   },
   imageUrls: {
     type:  [String],
-    required: true,
+    // required: true,
   },
   lastUpdated: {
     type: Date,
