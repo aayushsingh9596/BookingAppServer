@@ -97,7 +97,7 @@ export const addHotel = async (req: Request, res: Response) => {
     pricePerNight,
     starRating,
   } = req.body;
-  const imageUrls = req.uploadedImageUrls;
+  const imageUrls = req.uploadedImageUrls||[];
 
   const lastUpdated = new Date();
 

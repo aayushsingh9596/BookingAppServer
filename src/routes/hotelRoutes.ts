@@ -47,7 +47,7 @@ router.post(
       .withMessage("facilities are required"),
   ],
   // upload.array("imageFiles"),
-  uploadImages,
+  // uploadImages,
   addHotel
 );
 router.get("/getMyHotels", verifyToken, getMyHotels);
