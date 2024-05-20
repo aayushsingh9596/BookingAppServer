@@ -26,7 +26,8 @@ const router = express.Router();
 //   },
 // });
 
-const upload = multer();
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
 router.post(
   "/addHotel",
@@ -46,9 +47,8 @@ router.post(
       .isArray()
       .withMessage("facilities are required"),
   ],
-  upload.none(),
-  // upload.array("imageFiles"),
-  // uploadImages,
+  upload.array("imageFiles"),
+  uploadImages,
   addHotel
 );
 router.get("/getMyHotels", verifyToken, getMyHotels);
@@ -56,7 +56,7 @@ router.get("/getHotelById/:id", verifyToken, getHotelById);
 router.put(
   "/updateHotelById",
   verifyToken,
-  // upload.array("imageFiles"),
+  upload.array("imageFiles"),
   uploadImages,
   updateHotelById
 );
