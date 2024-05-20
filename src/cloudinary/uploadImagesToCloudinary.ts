@@ -27,15 +27,16 @@ const uploadImages = async (
 
     if (req.files && Array.isArray(req.files)) {
       for (const file of req.files) {
+
         const result = await cloudinary.uploader.upload(file.path);
         uploadedImageUrls.push(result.secure_url);
       }
 
-      if (uploadedImageUrls.length > 0) {
-        for (const file of req.files) {
-          fs.unlinkSync(file.path);
-        }
-      }
+      // if (uploadedImageUrls.length > 0) {
+      //   for (const file of req.files) {
+      //     fs.unlinkSync(file.path);
+      //   }
+      // }
       req.uploadedImageUrls = uploadedImageUrls;
       next();
     } else {

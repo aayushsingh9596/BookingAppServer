@@ -1,5 +1,5 @@
-import express from "express";
-import multer from "multer";
+import express, { NextFunction } from "express";
+// import multer from "multer";
 import { verifyToken } from "../middleware/authMiddleware";
 import { body, param } from "express-validator";
 import {
@@ -13,20 +13,20 @@ import {
   updateHotelById,
 } from "../controllers/hotelController";
 import uploadImages from "../cloudinary/uploadImagesToCloudinary";
-import path from "path";
+// import path from "path";
 
 const router = express.Router();
 
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null,path.resolve(__dirname+'../../../BookingAppServer/images/hotelImages'));
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + "-" + file.originalname);
-  },
-});
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null,path.resolve(__dirname+'../../../BookingAppServer/images/hotelImages'));
+//   },
+//   filename: function (req, file, cb) {
+//     cb(null, Date.now() + "-" + file.originalname);
+//   },
+// });
 
-const upload = multer({ storage: storage });
+// const upload = multer({ storage: storage });
 
 router.post(
   "/addHotel",
@@ -46,7 +46,7 @@ router.post(
       .isArray()
       .withMessage("facilities are required"),
   ],
-  upload.array("imageFiles"),
+  // upload.array("imageFiles"),
   uploadImages,
   addHotel
 );
@@ -55,7 +55,7 @@ router.get("/getHotelById/:id", verifyToken, getHotelById);
 router.put(
   "/updateHotelById",
   verifyToken,
-  upload.array("imageFiles"),
+  // upload.array("imageFiles"),
   uploadImages,
   updateHotelById
 );
