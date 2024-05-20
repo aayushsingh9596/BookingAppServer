@@ -13,13 +13,13 @@ import {
   updateHotelById,
 } from "../controllers/hotelController";
 import uploadImages from "../cloudinary/uploadImagesToCloudinary";
-// import path from "path";
+import path from "path";
 
 const router = express.Router();
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null,'../../../BookingAppServer/images/hotelImages');
+    cb(null,path.resolve(__dirname+'../../../BookingAppServer/images/hotelImages'));
   },
   filename: function (req, file, cb) {
     cb(null, Date.now() + "-" + file.originalname);
